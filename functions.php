@@ -74,8 +74,7 @@ function twentysixteen_setup() {
 
 	// This theme uses wp_nav_menu() in two locations.
 	register_nav_menus( array(
-		'primary' => __( 'Primary Menu', 'twentysixteen' ),
-		'social'  => __( 'Social Links Menu', 'twentysixteen' ),
+		'primary' => __( 'Primary Menu', 'twentysixteen' )
 	) );
 
 	/*
@@ -139,33 +138,33 @@ add_action( 'after_setup_theme', 'twentysixteen_content_width', 0 );
  */
 function twentysixteen_widgets_init() {
 	register_sidebar( array(
-		'name'          => __( 'Sidebar', 'twentysixteen' ),
-		'id'            => 'sidebar-1',
-		'description'   => __( 'Add widgets here to appear in your sidebar.', 'twentysixteen' ),
-		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'name'          => __( 'Home pod 1', 'twentysixteen' ),
+		'id'            => 'home-pod-1',
+		'description'   => __( 'Add a widget to the first home pod', 'twentysixteen' ),
+		'before_widget' => '<div class="pod_body"> <div class="pod_body-inner">',
+		'after_widget'  => '</div> </div>',
+		'before_title'  => '<p class="pod_title">',
+		'after_title'   => '</p>',
 	) );
 
 	register_sidebar( array(
-		'name'          => __( 'Content Bottom 1', 'twentysixteen' ),
-		'id'            => 'sidebar-2',
-		'description'   => __( 'Appears at the bottom of the content on posts and pages.', 'twentysixteen' ),
-		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'name'          => __( 'Home pod 2', 'twentysixteen' ),
+		'id'            => 'home-pod-2',
+		'description'   => __( 'Add a widget to the second home pod', 'twentysixteen' ),
+		'before_widget' => '<div class="pod_body"> <div class="pod_body-inner">',
+		'after_widget'  => '</div> </div>',
+		'before_title'  => '<p class="pod_title">',
+		'after_title'   => '</p>',
 	) );
 
 	register_sidebar( array(
-		'name'          => __( 'Content Bottom 2', 'twentysixteen' ),
-		'id'            => 'sidebar-3',
-		'description'   => __( 'Appears at the bottom of the content on posts and pages.', 'twentysixteen' ),
-		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
+		'name'          => __( 'Home pod 3', 'twentysixteen' ),
+		'id'            => 'home-pod-3',
+		'description'   => __( 'Add a widget to the third home pod', 'twentysixteen' ),
+		'before_widget' => '<div class="pod_body"> <div class="pod_body-inner">',
+		'after_widget'  => '</div> </div>',
+		'before_title'  => '<p class="pod_title">',
+		'after_title'   => '</p>',
 	) );
 }
 add_action( 'widgets_init', 'twentysixteen_widgets_init' );
@@ -229,32 +228,16 @@ add_action( 'wp_head', 'twentysixteen_javascript_detection', 0 );
  * @since Twenty Sixteen 1.0
  */
 function twentysixteen_scripts() {
-	// Add custom fonts, used in the main stylesheet.
-	wp_enqueue_style( 'twentysixteen-fonts', twentysixteen_fonts_url(), array(), null );
 
-	// Add Genericons, used in the main stylesheet.
-	wp_enqueue_style( 'genericons', get_template_directory_uri() . '/genericons/genericons.css', array(), '3.4.1' );
+	// main stylesheeets
+	wp_enqueue_style( 'main', get_template_directory_uri() . '/styles/main.css', array(), uniqid() );
+	wp_enqueue_style( 'vendor-concat', get_template_directory_uri() . '/styles/vendor-concat.css', array(), uniqid() );
 
-	// Theme stylesheet.
-	wp_enqueue_style( 'twentysixteen-style', get_stylesheet_uri() );
-
-	// Load the Internet Explorer specific stylesheet.
-	wp_enqueue_style( 'twentysixteen-ie', get_template_directory_uri() . '/css/ie.css', array( 'twentysixteen-style' ), '20150930' );
-	wp_style_add_data( 'twentysixteen-ie', 'conditional', 'lt IE 10' );
-
-	// Load the Internet Explorer 8 specific stylesheet.
-	wp_enqueue_style( 'twentysixteen-ie8', get_template_directory_uri() . '/css/ie8.css', array( 'twentysixteen-style' ), '20151230' );
-	wp_style_add_data( 'twentysixteen-ie8', 'conditional', 'lt IE 9' );
-
-	// Load the Internet Explorer 7 specific stylesheet.
-	wp_enqueue_style( 'twentysixteen-ie7', get_template_directory_uri() . '/css/ie7.css', array( 'twentysixteen-style' ), '20150930' );
-	wp_style_add_data( 'twentysixteen-ie7', 'conditional', 'lt IE 8' );
-
-	// Load the html5 shiv.
-	wp_enqueue_script( 'twentysixteen-html5', get_template_directory_uri() . '/js/html5.js', array(), '3.7.3' );
-	wp_script_add_data( 'twentysixteen-html5', 'conditional', 'lt IE 9' );
-
-	wp_enqueue_script( 'twentysixteen-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151112', true );
+	// main scripts
+	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/scripts/modernizr.js', array(), uniqid() );
+	wp_enqueue_script( 'polyfills-generated', get_template_directory_uri() . '/scripts/polyfills-generated.js', array(), uniqid() );
+	wp_enqueue_script( 'vendor-concat', get_template_directory_uri() . '/scripts/vendor-concat.js', array(), uniqid() );
+	wp_enqueue_script( 'main', get_template_directory_uri() . '/scripts/main.js', array(), uniqid() );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -405,3 +388,31 @@ function twentysixteen_widget_tag_cloud_args( $args ) {
 	return $args;
 }
 add_filter( 'widget_tag_cloud_args', 'twentysixteen_widget_tag_cloud_args' );
+
+
+
+
+
+
+/*
+	Change excerpt length
+ */
+function et_excerpt_length($length) {
+	return 45;
+}
+add_filter('excerpt_length', 'et_excerpt_length');
+
+
+/*
+	Remove excerpt link by default
+ */
+function et_excerpt_more($more) {
+	global $post;
+	return '&hellip;';
+}
+add_filter('excerpt_more', 'et_excerpt_more');
+
+
+add_image_size( 'news-item', 1140, 600, array( 'top', 'center') );
+
+add_theme_support( 'sportspress' );

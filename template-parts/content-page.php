@@ -9,13 +9,16 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-	</header><!-- .entry-header -->
+	<div class="page-head">
+		<div class="container">
+			<div class="page-head_shade"></div>
+			<?php the_title( '<h1 class="page-head_title">', '</h1>' ); ?>
+		</div>
+	</div>
 
 	<?php twentysixteen_post_thumbnail(); ?>
 
-	<div class="entry-content">
+	<div class="container entry-content">
 		<?php
 		the_content();
 
@@ -28,18 +31,19 @@
 			'separator'   => '<span class="screen-reader-text">, </span>',
 		) );
 		?>
+
+		<?php
+			edit_post_link(
+				sprintf(
+					/* translators: %s: Name of current post */
+					__( 'Edit<span class="screen-reader-text"> "%s"</span>', 'twentysixteen' ),
+					get_the_title()
+				),
+				'<footer class="entry-footer"><span class="edit-link">',
+				'</span></footer><!-- .entry-footer -->',
+				0,
+				'btn'
+			);
+		?>
 	</div><!-- .entry-content -->
-
-	<?php
-		edit_post_link(
-			sprintf(
-				/* translators: %s: Name of current post */
-				__( 'Edit<span class="screen-reader-text"> "%s"</span>', 'twentysixteen' ),
-				get_the_title()
-			),
-			'<footer class="entry-footer"><span class="edit-link">',
-			'</span></footer><!-- .entry-footer -->'
-		);
-	?>
-
 </article><!-- #post-## -->

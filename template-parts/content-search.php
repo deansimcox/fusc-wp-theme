@@ -44,7 +44,9 @@
 					get_the_title()
 				),
 				'<footer class="entry-footer"><span class="edit-link">',
-				'</span></footer><!-- .entry-footer -->'
+				'</span></footer><!-- .entry-footer -->',
+				0,
+				'btn'
 			);
 		?>
 

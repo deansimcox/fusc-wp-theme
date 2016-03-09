@@ -9,35 +9,48 @@
 
 get_header(); ?>
 
-	<section id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+<div class="page-head">
+	<div class="container">
+		<div class="page-head_shade"></div>
+		<h1 class="page-head_title"><?php printf( __( 'Search Results for: %s', 'twentysixteen' ), '<em>' . esc_html( get_search_query() ) . '</em>' ); ?></h1>		
+	</div>
+</div>
+
+<div class="container">
+	<div class="news-list">
 
 		<?php if ( have_posts() ) : ?>
-
-			<header class="page-header">
-				<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'twentysixteen' ), '<span>' . esc_html( get_search_query() ) . '</span>' ); ?></h1>
-			</header><!-- .page-header -->
 
 			<?php
 			// Start the loop.
 			while ( have_posts() ) : the_post();
+			?>
 
-				/**
-				 * Run the loop for the search to output the results.
-				 * If you want to overload this in a child theme then include a file
-				 * called content-search.php and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', 'search' );
+			<a href="<?php the_permalink(); ?>" class="news-item">
+				<div class="news-item_img-container">
+					<?php if ( has_post_thumbnail() ) {?>
+					<div style="background-image: url(<?php the_post_thumbnail_url(); ?>);" class="news-item_img"></div>
+					<?php } else { ?>
+					<div class="news-item_img-none"></div>
+					<?php } ?>
+				</div>
+				<div class="news-item_content">
+					<p class="news-item_title"><?php the_title(); ?></p>
+					<p class="news-item_date"><?php the_time('F jS, Y'); ?></p>
+					<div class="news-item_body"> 
+						<?php the_excerpt(); ?>
+						<p class="excerpt-more"><span>Go to page</span><span class="fa fa-arrow-right"></span></p>
+					</div>
+				</div>
+			</a>
 
+			<?php
 			// End the loop.
 			endwhile;
 
 			// Previous/next page navigation.
-			the_posts_pagination( array(
-				'prev_text'          => __( 'Previous page', 'twentysixteen' ),
-				'next_text'          => __( 'Next page', 'twentysixteen' ),
-				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentysixteen' ) . ' </span>',
-			) );
+			wp_pagenavi();
+
 
 		// If no content, include the "No posts found" template.
 		else :
@@ -46,8 +59,9 @@ get_header(); ?>
 		endif;
 		?>
 
-		</main><!-- .site-main -->
-	</section><!-- .content-area -->
 
-<?php get_sidebar(); ?>
+	</div><!-- .news-list -->
+</div><!-- .container -->
+
+<?php // get_sidebar(); ?>
 <?php get_footer(); ?>

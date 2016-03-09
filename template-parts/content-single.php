@@ -9,16 +9,36 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-	</header><!-- .entry-header -->
 
-	<?php twentysixteen_excerpt(); ?>
+	<div class="container">
+		<?php the_title( '<h1 class="article_title">', '</h1>' ); ?>
+		<p class="article_date"><?php the_date(); ?></p>
+	</div>
 
-	<?php twentysixteen_post_thumbnail(); ?>
+	<?php if ( has_post_thumbnail() ) {?>
+	<div class="article_img">
+		<div class="container">
+			<?php
+				twentysixteen_post_thumbnail('news-item');
+				$get_description = get_post(get_post_thumbnail_id())->post_excerpt;
+				if(!empty($get_description)){
+					echo '<p class="article_img-caption">' . $get_description . '</p>';
+				}
+			?>
+		</div>
+	</div>
+	<?php } ?>
 
-	<div class="entry-content">
+	<div class="article_body">
+		<div class="container">
 		<?php
+			$meta = get_post_meta(get_the_ID());
+
+			if ( array_key_exists('article-by', $meta) ) {
+				echo '<p class="article_author"><strong>Article by ' . $meta['article-by'][0] . '</strong></p>';
+			}
+			
+
 			the_content();
 
 			wp_link_pages( array(
@@ -34,10 +54,6 @@
 				get_template_part( 'template-parts/biography' );
 			}
 		?>
-	</div><!-- .entry-content -->
-
-	<footer class="entry-footer">
-		<?php twentysixteen_entry_meta(); ?>
 		<?php
 			edit_post_link(
 				sprintf(
@@ -46,8 +62,11 @@
 					get_the_title()
 				),
 				'<span class="edit-link">',
-				'</span>'
+				'</span>',
+				0,
+				'btn'
 			);
 		?>
-	</footer><!-- .entry-footer -->
+		</div><!-- .container -->
+	</div><!-- .article-body -->
 </article><!-- #post-## -->
