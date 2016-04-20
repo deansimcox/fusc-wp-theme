@@ -25,7 +25,7 @@ get_header(); ?>
 		'posts_per_page' => 10,
 		'post_status' => 'publish',
 		'post_type' => array(
-			'sp_event',
+			// 'sp_event',
 			'post'
 		),
 		'orderBy' => 'date',
