@@ -11,7 +11,7 @@
 ?>
 	
 	<footer class="site-footer">
-		<aside class="site-footer_sponsors">
+		<!-- <aside class="site-footer_sponsors">
 			<div class="container">
 				<a title="fosters group" target="_new" href="https://fostersgroup.com/"><img alt="fosters group" src="<?php echo get_template_directory_uri(); ?>/images/sponsors/fosters-group.png">
 				</a>
@@ -48,7 +48,7 @@
 				<a title="aquasports marine" target="_new" href="http://www.aquasportsmarine.com.au/"><img alt="aquasports marine" src="<?php echo get_template_directory_uri(); ?>/images/sponsors/aqua-sports-marine.png">
 				</a>
 			</div>
-		</aside>
+		</aside> -->
 		<div class="container">
 			<div class="site-footer_logo-wrap">
 				<div class="site-footer_logo"><img src="<?php echo get_template_directory_uri(); ?>/images/logo-fusc-white.svg"></div>
